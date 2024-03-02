@@ -1,0 +1,70 @@
+{
+	"name": "huddle/docker",
+	"image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+	"postCreateCommand": "ls -lah && ./.devcontainer/post-create.sh",
+	"forwardPorts": [80, 8080, 443],
+	"features": {
+		"ghcr.io/devcontainers/features/go:1": {
+			"version": "1.22"
+		},
+		"ghcr.io/devcontainers/features/aws-cli:1": {},
+        "ghcr.io/devcontainers-contrib/features/aws-cdk:2": {},
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {
+			"moby": true,
+			"azureDnsAutoDetection": true,
+			"installDockerBuildx": true,
+			"version": "20.10",
+			"dockerDashComposeVersion": "v1"
+		},
+		"ghcr.io/devcontainers-contrib/features/zsh-plugins:0": {
+			"plugins": "ssh-agent npm",
+			"omzPlugins": "https://github.com/zsh-users/zsh-autosuggestions",
+			"username": "vscode"
+		},
+		"ghcr.io/devcontainers/features/common-utils:2": {
+			"installZsh": true,
+			"configureZshAsDefaultShell": true,
+			"installOhMyZsh": true,
+			"installOhMyZshConfig": true,
+			"upgradePackages": true,
+			"username": "vscode",
+			"userUid": "1000",
+			"userGid": "1000"
+		},
+		"ghcr.io/devcontainers-contrib/features/projen:1": {}
+	},
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"go.lintTool": "golangci-lint",
+				"go.lintFlags": [
+					"--fast"
+				],
+				"go.lintOnSave": "package",
+				"go.useLanguageServer": true,
+				"gopls": {
+					"formatting.gofumpt": true
+				},
+				"files.autoSave": "onFocusChange"
+			},
+			"extensions": [
+				"golang.go",
+				"ms-azuretools.vscode-docker",
+				"ms-vscode.aws-toolkit",
+				"stripe.stripe-vscode",
+				"eamodio.gitlens",
+				"github.copilot",
+				"github.copilot-chat",
+				"gitlab.gitlab-workflow",
+				"redhat.vscode-yaml",
+				"AmazonWebServices.aws-toolkit-vscode"
+			]
+		}
+	},
+	"mounts": [
+        "source=${localEnv:HOME}/.aws,target=/home/vscode/.aws,type=bind,consistency=cached",
+        "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
+		"source=/,target=/mnt/host,type=bind,consistency=cached",
+        "source=${localEnv:HOME}${localEnv:USERPROFILE}/.gitconfig,target=/root/.gitconfig,type=bind,consistency=cached"
+	]
+}
