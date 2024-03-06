@@ -65,6 +65,6 @@
         "source=${localEnv:HOME}/.aws,target=/home/vscode/.aws,type=bind,consistency=cached",
         "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
 		"source=/,target=/mnt/host,type=bind,consistency=cached",
-        "source=${localEnv:HOME}${localEnv:USERPROFILE}/.gitconfig,target=/root/.gitconfig,type=bind,consistency=cached"
+        "source=${localEnv:HOME}${localEnv:USERPROFILE}/.gitconfig,target=/home/vscode/.gitconfig,type=bind,consistency=cached"
 	]
 }
